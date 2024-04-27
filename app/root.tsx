@@ -5,6 +5,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import "~/styles/tailwind.css";
+import "@fontsource/geist-sans"
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
