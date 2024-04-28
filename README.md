@@ -1,6 +1,24 @@
-# Welcome to Remix + Vite!
+### Branch Name
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/guides/vite) for details on supported features.
+feat/[feature], example feat/authentication
+
+### How to start
+
+#### Make sure you have latest nodejs version
+
+**NODEJS 22**
+
+(https://nodejs.org/en/download)[https://nodejs.org/en/download]
+
+```shellscript
+npm install
+```
+
+#### Create .env files
+
+```.env
+SESSION_SECRET='ofu8OtCRlacMMg=='
+```
 
 ## Development
 
