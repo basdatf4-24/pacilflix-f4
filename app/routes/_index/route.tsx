@@ -1,5 +1,5 @@
 import type {LoaderFunctionArgs, MetaFunction} from "@remix-run/node";
-import {useLoaderData} from "@remix-run/react";
+import {json, useLoaderData} from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
     return [
@@ -13,15 +13,15 @@ export function loader({request} : LoaderFunctionArgs) {
     const name_param = url.searchParams.get("name")
 
     const name = name_param || "Basdat F4"
-    return {
+    return json({
         messages: `Hello from ${name}!`,
-    }
+    })
 }
 
 export default function Index() {
     const data = useLoaderData<typeof loader>()
     return (
-        <div>
+        <div className='flex justify-center w-full'>
             {data.messages}
         </div>
 
