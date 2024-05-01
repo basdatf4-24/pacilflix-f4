@@ -1,0 +1,122 @@
+export const Film = [
+  {
+    peringkat: "1",
+    judul: "Spiderman Makan Lontong",
+    sinopsisfilm: "Peter Parker mencoba makan lontong dan menghadapi musuh baru.",
+    urlfilm: "https://www.youtube.com/watch?v=abcdefghijk",
+    tanggalRilisfilm: "2024-04-30",
+    totalView7Hari: 5000,
+    jenis: "series",
+    sutradara: "Jon Doe",
+    pemain: ["Tom Holland", "Zendaya"],
+    asalNegara: "Amerika Serikat"
+  },
+  {
+    peringkat: "2",
+    judul: "The Avengers: Tikus di Kehidupan",
+    sinopsisfilm: "Tim Avengers mengejar tikus raksasa yang menyerang kota.",
+    urlfilm: "https://www.youtube.com/watch?v=lmnopqrstuvwxyz",
+    tanggalRilisfilm: "2024-05-01",
+    totalView7Hari: 3500,
+    jenis: "series",
+    sutradara: "Jane Smith",
+    pemain: ["Robert Downey Jr.", "Chris Evans"],
+    asalNegara: "Amerika Serikat"
+  },
+  {
+    peringkat: "3",
+    judul: "Transformers: Revolusi Microwave",
+    sinopsisfilm: "Robot-robot Autobot dan Decepticon berperang menggunakan peralatan rumah tangga.",
+    urlfilm: "https://www.youtube.com/watch?v=mnopqrstuvwxyzabcdefg",
+    tanggalRilisfilm: "2024-05-02",
+    totalView7Hari: 6000,
+    jenis: "film",
+    sutradara: "Michael Bay",
+    pemain: ["Shia LaBeouf", "Megan Fox"],
+    asalNegara: "Amerika Serikat"
+  },
+  {
+    peringkat: "4",
+    judul: "Fast & Furious: The High-Speed Shopping Cart",
+    sinopsisfilm: "Dominic Toretto dan krunya mengendarai kereta belanja dalam balapan epik.",
+    urlfilm: "https://www.youtube.com/watch?v=qrstuvwxyzabcdefglmnop",
+    tanggalRilisfilm: "2024-05-03",
+    totalView7Hari: 8000,
+    jenis: "film",
+    sutradara: "Justin Lin",
+    pemain: ["Vin Diesel", "Michelle Rodriguez"],
+    asalNegara: "Amerika Serikat"
+  },
+  {
+    peringkat: "5",
+    judul: "Jurassic Park: The Lost Hamster",
+    sinopsisfilm: "Hamster raksasa melarikan diri dari taman dan mengacaukan kota.",
+    urlfilm: "https://www.youtube.com/watch?v=klmnopqrstuvwxyzabcdefghi",
+    tanggalRilisfilm: "2024-05-04",
+    totalView7Hari: 10000,
+    jenis: "film",
+    sutradara: "Steven Spielberg",
+    pemain: ["Sam Neill", "Laura Dern"],
+    asalNegara: "Amerika Serikat"
+  },
+  {
+    peringkat: "6",
+    judul: "Titanic: Pengembaraan di Bathtub",
+    sinopsisfilm: "Kisah cinta tragis di antara kapal Titanic dan sebuah bathtub.",
+    urlfilm: "https://www.youtube.com/watch?v=lmnopqrstuvwxyzabcdefghijk",
+    tanggalRilisfilm: "2024-05-05",
+    totalView7Hari: 4000,
+    jenis: "film",
+    sutradara: "James Cameron",
+    pemain: ["Leonardo DiCaprio", "Kate Winslet"],
+    asalNegara: "Amerika Serikat"
+  },
+  {
+    peringkat: "7",
+    judul: "Harry Potter: The Magical Broomstick",
+    sinopsisfilm: "Harry Potter menemukan sapu terbang ajaib yang membawanya ke petualangan baru.",
+    urlfilm: "https://www.youtube.com/watch?v=qrstuvwxyzabcdefghijklmno",
+    tanggalRilisfilm: "2024-05-06",
+    totalView7Hari: 7000,
+    jenis: "series",
+    sutradara: "Chris Columbus",
+    pemain: ["Daniel Radcliffe", "Emma Watson"],
+    asalNegara: "Inggris"
+  },
+  {
+    peringkat: "8",
+    judul: "Star Wars: The Force of Coffee",
+    sinopsisfilm: "Pertempuran epik antara kopi terbaik di dunia.",
+    urlfilm: "https://www.youtube.com/watch?v=abcdefghijklmnoqrstuvwxyz",
+    tanggalRilisfilm: "2024-05-07",
+    totalView7Hari: 9000,
+    jenis: "series",
+    sutradara: "George Lucas",
+    pemain: ["Mark Hamill", "Harrison Ford"],
+    asalNegara: "Amerika Serikat"
+  },
+  {
+    peringkat: "9",
+    judul: "Lord of the Rings: The Fellowship of the Pizza",
+    sinopsisfilm: "Frodo dan kawan-kawan mencari cincin kekuasaan di dalam sebuah piza raksasa.",
+    urlfilm: "https://www.youtube.com/watch?v=qrstuvwxyzabcdefghijklmn",
+    tanggalRilisfilm: "2024-05-08",
+    totalView7Hari: 6000,
+    jenis: "film",
+    sutradara: "Peter Jackson",
+    pemain: ["Elijah Wood", "Ian McKellen"],
+    asalNegara: "Selandia Baru"
+  },
+  {
+    peringkat: "10",
+    judul: "Pirates of the Caribbean: The Curse of the Singing Parrot",
+    sinopsisfilm: "Jack Sparrow berlayar mencari harta karun dengan bantuan burung kakatua yang bisa bernyanyi.",
+    urlfilm: "https://www.youtube.com/watch?v=abcdefghijklmnoqrstuvwxyz",
+    tanggalRilisfilm: "2024-05-09",
+    totalView7Hari: 8000,
+    jenis: "film",
+    sutradara: "Gore Verbinski",
+    pemain: ["Johnny Depp", "Orlando Bloom"],
+    asalNegara: "Amerika Serikat"
+  }
+];

@@ -64,12 +64,15 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center justify-center">
-          <NavLink
-            to="/trailer"
-            className="transition-colors text-foreground/60 hover:text-foreground/80"
-          >
-            Trailer
-          </NavLink>
+          <div className="flex gap-4">
+            <NavLink
+              to="/tayangan"
+              className="transition-colors text-foreground/60 hover:text-foreground/80"
+            >
+              Tayangan
+            </NavLink>
+
+          </div>
         </div>
       </div>
 
