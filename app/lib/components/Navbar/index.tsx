@@ -1,4 +1,10 @@
-import { Link, NavLink, useFetcher, useLocation } from "@remix-run/react";
+import {
+  Link,
+  NavLink,
+  useFetcher,
+  useLocation,
+  useMatches,
+} from "@remix-run/react";
 import { SunMoon } from "lucide-react";
 import { Button } from "~/lib/ui/button";
 import {
@@ -11,6 +17,32 @@ import {
 export default function Navbar() {
   const location = useLocation();
   const fetcher = useFetcher();
+  let navbar: {
+    title: string;
+    url: string;
+  }[] = [];
+
+  if (
+    location.pathname === "/authentication" ||
+    location.pathname === "/" ||
+    location.pathname === "/authentication/login" ||
+    location.pathname === "/authentication/register"
+  ) {
+    navbar = [
+      {
+        title: "Trailer",
+        url: "/trailer",
+      },
+    ];
+  } else {
+    navbar = [
+      { title: "Daftar Tayangan", url: "/" },
+      { title: "Daftar Kontributor", url: "/" },
+      { title: "Kelola Daftar Favorit", url: "/" },
+      { title: "Kelola Daftar Unduhan", url: "/" },
+      { title: "Kelola Langganan", url: "/subscribe" },
+    ];
+  }
   return (
     <nav className="px-10 py-3 flex items-center justify-between sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex flex-row gap-8">
@@ -63,20 +95,30 @@ export default function Navbar() {
           </DropdownMenu>
         </div>
 
-        <div className="flex items-center justify-center">
-          <NavLink
-            to="/trailer"
-            className="transition-colors text-foreground/60 hover:text-foreground/80"
-          >
-            Trailer
-          </NavLink>
+        <div className="flex items-center justify-center gap-5">
+          {navbar.map((items, index) => (
+            <NavLink
+              to={items.url}
+              key={index}
+              className="transition-colors text-foreground/60 hover:text-foreground/80"
+            >
+              {items.title}
+            </NavLink>
+          ))}
         </div>
       </div>
 
       <div className="flex items-center justify-center">
-        <NavLink to="/authentication">
-          <Button>Login</Button>
-        </NavLink>
+        {location.pathname === "/authentication" ||
+        location.pathname === "/" ||
+        location.pathname === "/authentication/login" ||
+        location.pathname === "/authentication/register" ? (
+          <NavLink to="/authentication">
+            <Button>Login</Button>
+          </NavLink>
+        ) : (
+          <Button>Logout</Button>
+        )}
       </div>
     </nav>
   );
