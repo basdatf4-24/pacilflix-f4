@@ -1,10 +1,4 @@
-import {
-  Link,
-  NavLink,
-  useFetcher,
-  useLocation,
-  useMatches,
-} from "@remix-run/react";
+import { Link, NavLink, useFetcher, useLocation } from "@remix-run/react";
 import { SunMoon } from "lucide-react";
 import { Button } from "~/lib/ui/button";
 import {
