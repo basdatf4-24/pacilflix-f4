@@ -20,7 +20,9 @@ export default function HalamanSeries() {
             {SeriesData.episode.map((episode, index) => (
               <li key={index}>
                 <span className="font-semibold">Episode {episode.nomor}: </span>
-                <a href={episode.link} className="text-blue-600 underline">{`Link episode ${episode.nomor}`}</a>
+                <Link to="/tayangan/episode" className="text-blue-600 underline">
+                  Tonton
+                </Link>
               </li>
             ))}
           </ul>

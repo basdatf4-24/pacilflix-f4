@@ -23,17 +23,17 @@ export async function action({ request }: LoaderFunctionArgs) {
 
 export default function ReviewPage() {
   const [selectedRating, setSelectedRating] = useState("");
-  // const [reviews, setReviews] = useState<{ rating: string; review: string }[]>([]);
+  const [reviews, setReviews] = useState<{ rating: string; review: string }[]>([]);
 
-  // const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(event.currentTarget);
-  //   const review = formData.get("review")?.toString() || ""; 
-  //   const rating = formData.get("rating")?.toString() || ""; 
-  //   setReviews([{ review, rating }, ...reviews]);
-  //   setSelectedRating("");
-  //   event.currentTarget.reset(); 
-  // };
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const review = formData.get("review")?.toString() || ""; 
+    const rating = formData.get("rating")?.toString() || ""; 
+    setReviews([{ review, rating }, ...reviews]);
+    setSelectedRating("");
+    event.currentTarget.reset(); 
+  };
 
   return (
     <Card className="w-[300%]">
@@ -48,7 +48,7 @@ export default function ReviewPage() {
         <Form
           method="POST"
           action="/review"
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           className="w-full flex flex-col gap-8"
         >
           <div className="flex flex-col gap-4">
@@ -87,7 +87,7 @@ export default function ReviewPage() {
 
         <div className="mt-8 flex flex-col items-center">
           <h2 className="text-lg font-semibold mb-4">Daftar Ulasan:</h2>
-          {/* <div className="w-full">
+          <div className="w-full">
             {reviews.map((review, index) => (
               <div key={index} className="mb-4">
                 <Card className="w-full">
@@ -100,10 +100,12 @@ export default function ReviewPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </div> */}
-            {/* ))} */}
+              </div>
+            ))}
           </div>
-        {/* </div> */}
+        </div> 
+
+          
       </CardContent>
     </Card>
   );
