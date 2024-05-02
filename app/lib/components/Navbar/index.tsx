@@ -69,7 +69,7 @@ export default function Navbar() {
               to="/tayangan"
               className="transition-colors text-foreground/60 hover:text-foreground/80"
             >
-              Tayangan
+              Trailer
             </NavLink>
 
           </div>

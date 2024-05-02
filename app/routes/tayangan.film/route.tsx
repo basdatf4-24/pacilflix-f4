@@ -21,7 +21,10 @@ export async function action({ request }: LoaderFunctionArgs) {
 
 export default function HalamanFilm() {
   const [selectedRating, setSelectedRating] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedList, setSelectedList] = useState("");
   const [reviews, setReviews] = useState<{ rating: string; review: string }[]>([]);
+  const favoriteLists = ["List 1", "List 2", "List 3"]; 
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,6 +35,20 @@ export default function HalamanFilm() {
     setSelectedRating("");
     event.currentTarget.reset(); 
   };
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleListSelect = (value:string) => {
+    setSelectedList(value);
+  };
+
+
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
@@ -44,8 +61,49 @@ export default function HalamanFilm() {
         <div className="flex justify-center gap-4 mt-8">
           <Button variant="default" className="w-[30%]">Tonton</Button>
           <Button variant="default" className="w-[30%]">Unduh Tayangan</Button>
-          <Button variant="default" className="w-[30%]">Favorit Tayangan</Button>
+          <Button variant="default" className="w-[30%]" onClick={handleModalOpen}>Favorit Tayangan</Button>
         </div>
+        {isModalOpen && (
+          <div className="fixed z-10 inset-0 overflow-y-auto flex justify-center items-center bg-black bg-opacity-50">
+            <div className="relative bg-white rounded-lg w-[400px] p-6">
+              <CardHeader>
+                <CardTitle>Tambah ke Daftar Favorit</CardTitle>
+                <CardDescription>Pilih daftar favorit untuk menambahkan film ini.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Form className="flex flex-col gap-4">
+                  <div>
+                    <Label htmlFor="favoriteList">Judul Daftar Favorit:</Label>
+                    <Select
+                      name="favoriteList" // Changed name to 'favoriteList'
+                      defaultValue={selectedList} // Added default value
+                      onValueChange={handleListSelect}
+                    >
+                      <SelectTrigger>{selectedList ? selectedList : "Pilih daftar favorit"}</SelectTrigger>
+                      <SelectContent>
+                        {favoriteLists.map((list, index) => (
+                          <SelectItem key={index} value={list}>
+                            {list}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="flex justify-end">
+                    <Button variant="default" onClick={handleModalClose} className="mr-2">
+                      Batal
+                    </Button>
+                    <Button variant="default" onClick={handleModalClose}>
+                      Tambah
+                    </Button>
+                  </div>
+                </Form>
+              </CardContent>
+            </div>
+          </div>
+        )}
+
 
         <div className="flex flex-col gap-4 mt-8">
           <Label><strong>Total View:</strong> {FilmData.totalView}</Label>
