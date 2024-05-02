@@ -11,7 +11,7 @@ import {
 } from "@remix-run/react";
 import "~/styles/tailwind.css";
 import "@fontsource/geist-sans";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { type LoaderFunctionArgs } from "@remix-run/node";
 import { parseColorScheme } from "~/lib/server/color-scheme.server";
 import { ColorSchemeScript, useColorScheme } from "~/lib/helper/theme";
 import { cx } from "class-variance-authority";

@@ -1,7 +1,7 @@
-import { useMemo } from "react";
 import { useNavigation, useRouteLoaderData } from "@remix-run/react";
-import { useLayoutEffect } from "./utils";
+import { useMemo } from "react";
 import type { loader as rootLoader } from "~/root";
+import { useLayoutEffect } from "./utils";
 
 export type ColorScheme = "dark" | "light" | "system";
 
