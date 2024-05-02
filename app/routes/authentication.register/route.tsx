@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { type LoaderFunctionArgs, json } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 import { Button } from "~/lib/ui/button";
 import {
@@ -10,7 +10,6 @@ import {
 } from "~/lib/ui/card";
 import { Input } from "~/lib/ui/input";
 import { Label } from "~/lib/ui/label";
-import { ClientOnly } from "remix-utils/client-only";
 import {
   Select,
   SelectContent,

@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { type LoaderFunctionArgs, json } from "@remix-run/node";
+import { Form } from "@remix-run/react";
 import { Button } from "~/lib/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/lib/ui/card";
 import { Input } from "~/lib/ui/input";
@@ -11,8 +11,10 @@ export async function loader() {
 
 export async function action({ request }: LoaderFunctionArgs) {
   const formData = await request.formData();
-  const username = formData.get("username");
-  const password = formData.get("password");
+  let username = formData.get("username");
+  let password = formData.get("password");
+
+  console.log(username, password);
   return json({});
 }
 
