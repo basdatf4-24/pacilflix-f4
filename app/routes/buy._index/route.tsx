@@ -69,7 +69,7 @@ export function DropdownMenuRadioGroupDemo() {
             <DropdownMenuRadioItem value="top">BANK TRANSFER</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="bottom">CREDIT</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="right">E-WALLET</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="right">DEBIT</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="left">DEBIT</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
