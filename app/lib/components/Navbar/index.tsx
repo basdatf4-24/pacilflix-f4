@@ -5,7 +5,7 @@ import {
   useLocation,
   useRouteLoaderData,
 } from "@remix-run/react";
-import { loader as rootLoader } from "~/root";
+import type { loader as rootLoader } from "~/root";
 import { SunMoon } from "lucide-react";
 import { Button } from "~/lib/ui/button";
 import {
