@@ -1,7 +1,5 @@
-import {
-  LoaderFunctionArgs,
-  createCookieSessionStorage,
-} from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { createCookieSessionStorage } from "@remix-run/node";
 import { redirectWithError } from "remix-toast";
 import { safeRedirect } from "./http.server";
 
