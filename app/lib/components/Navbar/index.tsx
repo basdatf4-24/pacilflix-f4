@@ -1,4 +1,11 @@
-import { Link, NavLink, useFetcher, useLocation } from "@remix-run/react";
+import {
+  Link,
+  NavLink,
+  useFetcher,
+  useLocation,
+  useRouteLoaderData,
+} from "@remix-run/react";
+import { loader as rootLoader } from "~/root";
 import { SunMoon } from "lucide-react";
 import { Button } from "~/lib/ui/button";
 import {
@@ -11,17 +18,13 @@ import {
 export default function Navbar() {
   const location = useLocation();
   const fetcher = useFetcher();
+  let rootLoaderData = useRouteLoaderData<typeof rootLoader>("root");
   let navbar: {
     title: string;
     url: string;
   }[] = [];
 
-  if (
-    location.pathname === "/authentication" ||
-    location.pathname === "/" ||
-    location.pathname === "/authentication/login" ||
-    location.pathname === "/authentication/register"
-  ) {
+  if (!rootLoaderData?.user) {
     navbar = [
       {
         title: "Trailer",
@@ -103,15 +106,14 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center justify-center">
-        {location.pathname === "/authentication" ||
-        location.pathname === "/" ||
-        location.pathname === "/authentication/login" ||
-        location.pathname === "/authentication/register" ? (
+        {!rootLoaderData?.user ? (
           <NavLink to="/authentication">
             <Button>Login</Button>
           </NavLink>
         ) : (
-          <Button>Logout</Button>
+          <NavLink to="/authentication/logout">
+            <Button>Logout</Button>
+          </NavLink>
         )}
       </div>
     </nav>

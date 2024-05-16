@@ -1,7 +1,7 @@
 import { createCookie } from "@remix-run/node";
 import type { ColorScheme } from "~/lib/helper/theme";
 
-const cookie = createCookie("color-scheme", {
+let cookie = createCookie("color-scheme", {
   maxAge: 34560000,
   sameSite: "lax",
 });
@@ -9,16 +9,16 @@ const cookie = createCookie("color-scheme", {
 export async function parseColorScheme(request: Request) {
   const header = request.headers.get("Cookie");
   const vals = await cookie.parse(header);
-  const colorScheme = vals?.colorScheme;
+
+  let colorScheme = vals?.colorScheme;
   if (validateColorScheme(colorScheme)) {
-    // not sure why type narrowing isn't working here
     return colorScheme;
   }
   return "system";
 }
 
 export function serializeColorScheme(colorScheme: ColorScheme) {
-  const eatCookie = colorScheme === "system";
+  let eatCookie = colorScheme === "system";
   if (eatCookie) {
     return cookie.serialize({}, { expires: new Date(0), maxAge: 0 });
   } else {

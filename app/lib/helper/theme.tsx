@@ -1,8 +1,7 @@
-import { useNavigation, useRouteLoaderData } from "@remix-run/react";
 import { useMemo } from "react";
+import { useNavigation, useRouteLoaderData } from "@remix-run/react";
 import type { loader as rootLoader } from "~/root";
 import { useLayoutEffect } from "./utils";
-
 export type ColorScheme = "dark" | "light" | "system";
 
 export function useColorScheme(): ColorScheme {
@@ -36,7 +35,7 @@ function ColorSchemeScriptImpl() {
           if (media.matches) document.documentElement.classList.add("dark");
         }
       `,
-    [], // eslint-disable-line -- we don't want this script to ever change
+    [] // eslint-disable-line -- we don't want this script to ever change
   );
 
   // Set
