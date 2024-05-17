@@ -33,6 +33,7 @@ export async function getAuthUser(request: Request) {
       },
     });
   }
+  return session.get("username");
 }
 
 export async function getUserFromRequest(request: Request) {
