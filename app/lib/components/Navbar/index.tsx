@@ -35,8 +35,8 @@ export default function Navbar() {
     navbar = [
       { title: "Daftar Tayangan", url: "/" },
       { title: "Daftar Kontributor", url: "/" },
-      { title: "Kelola Daftar Favorit", url: "/" },
-      { title: "Kelola Daftar Unduhan", url: "/" },
+      { title: "Daftar Favorit", url: "/shows/favorite" },
+      { title: "Daftar Unduhan", url: "/shows/downloaded" },
       { title: "Kelola Langganan", url: "/subscribe" },
     ];
   }
