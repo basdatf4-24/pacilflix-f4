@@ -14,20 +14,17 @@ export async function action({ request }: ActionFunctionArgs) {
   let title = String(form.get("title") || "");
 
   if (title === "") {
-    return json({ error: true, username: username });
+    return json({ success: true });
   }
 
   try {
-    let res = await createFavorite({
+    await createFavorite({
       username,
       title,
     });
-    return jsonWithSuccess(
-      { username, title: res.title },
-      "Sukses menambahkan ke favorit"
-    );
+    return jsonWithSuccess({ success: true }, "Sukses membuat daftar favorit");
   } catch (error) {
     let pgerror = error as PostgresError;
-    return jsonWithError({ error: true }, pgerror.message);
+    return jsonWithError({ success: false }, pgerror.message);
   }
 }
