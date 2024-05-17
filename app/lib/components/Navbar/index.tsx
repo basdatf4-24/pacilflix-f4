@@ -1,4 +1,11 @@
-import { Link, NavLink, useFetcher, useLocation } from "@remix-run/react";
+import {
+  Link,
+  NavLink,
+  useFetcher,
+  useLocation,
+  useRouteLoaderData,
+} from "@remix-run/react";
+import type { loader as rootLoader } from "~/root";
 import { SunMoon } from "lucide-react";
 import { Button } from "~/lib/ui/button";
 import {
@@ -11,6 +18,28 @@ import {
 export default function Navbar() {
   const location = useLocation();
   const fetcher = useFetcher();
+  let rootLoaderData = useRouteLoaderData<typeof rootLoader>("root");
+  let navbar: {
+    title: string;
+    url: string;
+  }[] = [];
+
+  if (!rootLoaderData?.user) {
+    navbar = [
+      {
+        title: "Trailer",
+        url: "/trailer",
+      },
+    ];
+  } else {
+    navbar = [
+      { title: "Daftar Tayangan", url: "/" },
+      { title: "Daftar Kontributor", url: "/" },
+      { title: "Kelola Daftar Favorit", url: "/" },
+      { title: "Kelola Daftar Unduhan", url: "/" },
+      { title: "Kelola Langganan", url: "/subscribe" },
+    ];
+  }
   return (
     <nav className="px-10 py-3 flex items-center justify-between sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex flex-row gap-8">
@@ -63,23 +92,29 @@ export default function Navbar() {
           </DropdownMenu>
         </div>
 
-        <div className="flex items-center justify-center">
-          <div className="flex gap-4">
+        <div className="flex items-center justify-center gap-5">
+          {navbar.map((items, index) => (
             <NavLink
-              to="/tayangan"
+              to={items.url}
+              key={index}
               className="transition-colors text-foreground/60 hover:text-foreground/80"
             >
-              Trailer
+              {items.title}
             </NavLink>
-
-          </div>
+          ))}
         </div>
       </div>
 
       <div className="flex items-center justify-center">
-        <NavLink to="/authentication">
-          <Button>Login</Button>
-        </NavLink>
+        {!rootLoaderData?.user ? (
+          <NavLink to="/authentication">
+            <Button>Login</Button>
+          </NavLink>
+        ) : (
+          <NavLink to="/authentication/logout">
+            <Button>Logout</Button>
+          </NavLink>
+        )}
       </div>
     </nav>
   );

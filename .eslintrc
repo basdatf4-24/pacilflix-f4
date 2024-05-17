@@ -12,7 +12,9 @@
       "version": 27
     }
   },
+  "plugins": ["eslint-plugin-react-compiler"],
   "rules": {
-    "prefer-const": "off"
+    "prefer-const": "off",
+    "react-compiler/react-compiler": "error"
   }
 }

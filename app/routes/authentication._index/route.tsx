@@ -1,7 +1,10 @@
 import { Link } from "@remix-run/react";
+import { redirectIfLoggedInLoader } from "~/lib/server/auth.server";
 import { Button } from "~/lib/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/lib/ui/card";
 import { Separator } from "~/lib/ui/separator";
+
+export const loader = redirectIfLoggedInLoader;
 
 export default function AuthenticationIndex() {
   return (

@@ -1,29 +1,43 @@
 import {
-  isRouteErrorResponse,
   json,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useMatches,
-  useRouteError,
 } from "@remix-run/react";
 import "~/styles/tailwind.css";
 import "@fontsource/geist-sans";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { type LoaderFunctionArgs } from "@remix-run/node";
 import { parseColorScheme } from "~/lib/server/color-scheme.server";
 import { ColorSchemeScript, useColorScheme } from "~/lib/helper/theme";
 import { cx } from "class-variance-authority";
 import Navbar from "~/lib/components/Navbar";
-import { canUseDOM } from "~/lib/helper/utils";
 import { GlobalLoading } from "./lib/helper/global-loading";
+import { getToast } from "remix-toast";
+import { useEffect } from "react";
+import { Toaster } from "~/lib/ui/sonner";
+import { toast as notify } from "sonner";
+import { getUserFromRequest } from "./lib/server/auth.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const colorScheme = await parseColorScheme(request);
-  return json({
-    colorScheme,
-  });
+  let user = await getUserFromRequest(request);
+
+  const { toast, headers } = await getToast(request);
+
+  return json(
+    {
+      user,
+      colorScheme,
+      toast,
+    },
+    {
+      headers,
+    }
+  );
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -42,9 +56,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         dark: forceDark || colorScheme === "dark",
       })}
       data-theme={forceDark ? "dark" : colorScheme}
+      suppressHydrationWarning
     >
       <head>
-        {/* eslint-disable-next-line react/jsx-no-undef */}
         <ColorSchemeScript forceConsistentTheme={forceDark} />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,11 +71,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
       </body>
+      <Toaster />
     </html>
   );
 }
 
 export default function App() {
+  const { toast } = useLoaderData<typeof loader>();
+
+  useEffect(() => {
+    if (toast?.type === "error") {
+      notify.error(toast.message);
+    }
+    if (toast?.type === "success") {
+      notify.success(toast.message);
+    }
+    if (toast?.type === "info") {
+      notify.info(toast.message);
+    }
+  }, [toast]);
   return (
     <div className="flex min-h-screen flex-col overflow-hidden">
       <div className="z-20" id="nav">
@@ -72,48 +100,5 @@ export default function App() {
       </div>
       <div className="z-20" id="footer"></div>
     </div>
-  );
-}
-
-export function ErrorBoundary() {
-  const error = useRouteError();
-  if (!canUseDOM) {
-    console.error(error);
-  }
-
-  if (isRouteErrorResponse(error)) {
-    return (
-      <html lang="en">
-        <head>
-          <title>{error.statusText}</title>
-        </head>
-        <body>
-          <div className="flex flex-1 flex-col justify-center text-white">
-            <div className="text-center leading-none font-sans">
-              <h1 className="text-[25vw]">{error.status}</h1>
-              <p className="text-[8vw] underline">{error.statusText}</p>
-            </div>
-          </div>
-        </body>
-      </html>
-    );
-  }
-
-  return (
-    <html lang="en">
-      <head>
-        <title>Something when wrong</title>
-      </head>
-      <body>
-        <div className="flex flex-1 flex-col justify-center text-white">
-          <div className="text-center leading-none">
-            <h1 className="font-mono text-[25vw]">Error</h1>
-            <p className="font-sans">
-              Something went wrong! Please try again later.
-            </p>
-          </div>
-        </div>
-      </body>
-    </html>
   );
 }
