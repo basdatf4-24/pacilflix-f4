@@ -1,5 +1,5 @@
 import { type ActionFunctionArgs } from "@remix-run/node";
-import { PostgresError } from "postgres";
+import { type PostgresError } from "postgres";
 import { jsonWithError, jsonWithSuccess } from "remix-toast";
 import { addFavoriteToFavoriteList } from "~/lib/repository/favorite/favorite.server";
 import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
