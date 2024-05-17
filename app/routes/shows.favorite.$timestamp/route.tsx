@@ -1,7 +1,7 @@
 import {
   type LoaderFunctionArgs,
   json,
-  ActionFunctionArgs,
+  type ActionFunctionArgs,
 } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { jsonWithError, jsonWithSuccess } from "remix-toast";
