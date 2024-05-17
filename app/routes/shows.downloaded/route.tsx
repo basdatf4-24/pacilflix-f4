@@ -12,7 +12,7 @@ import {
   json,
   type LoaderFunctionArgs,
 } from "@remix-run/node";
-import { getAuthUser } from "~/lib/server/auth.server";
+import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
 import {
   deleteDownloadedShows,
   getDownloadedShows,
@@ -21,7 +21,9 @@ import { Form, useLoaderData } from "@remix-run/react";
 import { jsonWithError, jsonWithSuccess } from "remix-toast";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  let username = await getAuthUser(request);
+  let redirect = await getAuthUser(request);
+  if (redirect) return redirect;
+  let username = await getUserFromRequest(request);
   let downloaded_shows = await getDownloadedShows({ username });
   return json({ username, downloaded_shows });
 }

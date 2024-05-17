@@ -1,11 +1,14 @@
 import { type ActionFunctionArgs, json } from "@remix-run/node";
-import { PostgresError } from "postgres";
+import { type PostgresError } from "postgres";
 import { jsonWithError, jsonWithSuccess } from "remix-toast";
 import { createFavorite } from "~/lib/repository/favorite/favorite.server";
-import { getAuthUser } from "~/lib/server/auth.server";
+import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
 
 export async function action({ request }: ActionFunctionArgs) {
-  let username = await getAuthUser(request);
+  let redirect = await getAuthUser(request);
+  if (redirect) return redirect;
+  let username = await getUserFromRequest(request);
+
   let form = await request.formData();
 
   let title = String(form.get("title") || "");

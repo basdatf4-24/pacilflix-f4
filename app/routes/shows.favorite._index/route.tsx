@@ -12,7 +12,7 @@ import {
   json,
   type LoaderFunctionArgs,
 } from "@remix-run/node";
-import { getAuthUser } from "~/lib/server/auth.server";
+import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { jsonWithError, jsonWithSuccess } from "remix-toast";
 import {
@@ -28,7 +28,9 @@ import {
 import { Input } from "~/lib/ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 export async function loader({ request }: LoaderFunctionArgs) {
-  let username = await getAuthUser(request);
+  let redirect = await getAuthUser(request);
+  if (redirect) return redirect;
+  let username = await getUserFromRequest(request);
   let listFavorite = await getListFavorite({ username });
   return json({ username, listFavorite });
 }

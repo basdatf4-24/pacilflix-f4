@@ -9,7 +9,7 @@ import {
   deleteFromDaftarFavorit,
   getFavoriteDetail,
 } from "~/lib/repository/favorite/favorite.server";
-import { getAuthUser } from "~/lib/server/auth.server";
+import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
 import { Button } from "~/lib/ui/button";
 import {
   Table,
@@ -32,7 +32,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       favoriteFilms: [],
     });
   }
-  let username = await getAuthUser(request);
+  let redirect = await getAuthUser(request);
+  if (redirect) return redirect;
+  let username = await getUserFromRequest(request);
 
   let favoriteFilms = await getFavoriteDetail({
     username,
