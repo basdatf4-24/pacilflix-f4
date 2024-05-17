@@ -27,7 +27,7 @@ export async function getAuthUser(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
   if (!session.has("username")) {
     session.unset("username");
-    return redirectWithError(
+    throw redirectWithError(
       "/authentication/login",
       "Opps! you are not logged in",
       {
@@ -37,7 +37,7 @@ export async function getAuthUser(request: Request) {
       }
     );
   }
-  return null;
+  return undefined;
 }
 
 export async function getUserFromRequest(request: Request) {
