@@ -3,34 +3,39 @@ import { Card, CardHeader, CardTitle, CardContent } from "~/lib/ui/card";
 import { SeriesData } from "./constant";
 import { Form, Link, json } from "@remix-run/react";
 import { Label } from "@radix-ui/react-label";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "~/lib/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "~/lib/ui/select";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { useState, FormEvent } from "react";
 import { Textarea } from "~/lib/ui/textarea";
 
-
-const RATINGS = [1, 2, 3, 4, 5,6,7,8,9,10];
+const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export async function action({ request }: LoaderFunctionArgs) {
   const formData = await request.formData();
-  const rating = formData.get("rating")?.toString() || ""; 
-  const review = formData.get("review")?.toString() || ""; 
-  console.log(rating, review);
+  const rating = formData.get("rating")?.toString() || "";
+  const review = formData.get("review")?.toString() || "";
   return json({ rating, review });
 }
 
 export default function HalamanSeries() {
   const [selectedRating, setSelectedRating] = useState("");
-  const [reviews, setReviews] = useState<{ rating: string; review: string }[]>([]);
+  const [reviews, setReviews] = useState<{ rating: string; review: string }[]>(
+    []
+  );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const review = formData.get("review")?.toString() || ""; 
-    const rating = formData.get("rating")?.toString() || ""; 
+    const review = formData.get("review")?.toString() || "";
+    const rating = formData.get("rating")?.toString() || "";
     setReviews([{ review, rating }, ...reviews]);
     setSelectedRating("");
-    event.currentTarget.reset(); 
+    event.currentTarget.reset();
   };
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -47,7 +52,10 @@ export default function HalamanSeries() {
             {SeriesData.episode.map((episode, index) => (
               <li key={index}>
                 <span className="font-semibold">Episode {episode.nomor}: </span>
-                <Link to="/tayangan/episode" className="text-blue-600 underline">
+                <Link
+                  to="/tayangan/episode"
+                  className="text-blue-600 underline"
+                >
                   Tonton
                 </Link>
               </li>
@@ -65,28 +73,42 @@ export default function HalamanSeries() {
         </div>
 
         <div className="flex flex-col gap-4 mt-8">
-          <Label><strong>Total View:</strong> {SeriesData.totalView}</Label>
-          <Label><strong>Sinopsis:</strong> {SeriesData.sinopsisfilm}</Label>
-          <Label><strong>Asal Negara:</strong> {SeriesData.asalNegara}</Label>
-          <Label><strong>Genre:</strong></Label>
+          <Label>
+            <strong>Total View:</strong> {SeriesData.totalView}
+          </Label>
+          <Label>
+            <strong>Sinopsis:</strong> {SeriesData.sinopsisfilm}
+          </Label>
+          <Label>
+            <strong>Asal Negara:</strong> {SeriesData.asalNegara}
+          </Label>
+          <Label>
+            <strong>Genre:</strong>
+          </Label>
           <ul className="list-disc pl-8">
             {SeriesData.genre.map((genre, index) => (
               <li key={index}>{genre}</li>
             ))}
           </ul>
-          <Label><strong>Pemain:</strong></Label>
+          <Label>
+            <strong>Pemain:</strong>
+          </Label>
           <ul className="list-disc pl-8">
             {SeriesData.pemain.map((actor, index) => (
               <li key={index}>{actor}</li>
             ))}
           </ul>
-          <Label><strong>Penulis Skenario:</strong></Label>
+          <Label>
+            <strong>Penulis Skenario:</strong>
+          </Label>
           <ul className="list-disc pl-8">
             {SeriesData.penulisSkenario.map((writer, index) => (
               <li key={index}>{writer}</li>
             ))}
           </ul>
-          <Label><strong>Sutradara:</strong> {SeriesData.sutradara}</Label>
+          <Label>
+            <strong>Sutradara:</strong> {SeriesData.sutradara}
+          </Label>
         </div>
 
         <div className="text-center mt-8">
@@ -99,7 +121,7 @@ export default function HalamanSeries() {
             action="/review"
             onSubmit={handleSubmit}
             className="w-full flex flex-col gap-8"
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: "center" }}
           >
             <div className="flex flex-col gap-4">
               <Label htmlFor="rating">Rating</Label>
@@ -127,7 +149,7 @@ export default function HalamanSeries() {
                 id="review"
                 name="review"
                 placeholder="Enter your review for this film"
-                style={{ textAlign: 'left' }} // Menengahkan teks area review
+                style={{ textAlign: "left" }} // Menengahkan teks area review
               />
             </div>
 
@@ -139,20 +161,29 @@ export default function HalamanSeries() {
             <h2 className="text-lg font-semibold mb-4">Daftar Ulasan:</h2>
             <div className="w-full">
               {reviews.map((review, index) => (
-                <Card key={index} className="w-full mb-4" style={{ maxWidth: '800px' }}>
-                  <CardContent className="relative" style={{ overflowWrap: 'break-word' }} >
+                <Card
+                  key={index}
+                  className="w-full mb-4"
+                  style={{ maxWidth: "800px" }}
+                >
+                  <CardContent
+                    className="relative"
+                    style={{ overflowWrap: "break-word" }}
+                  >
                     <div className="mb-2 mt-3">
-                      <span className="font-semibold">Rating: </span>{review.rating}
+                      <span className="font-semibold">Rating: </span>
+                      {review.rating}
                     </div>
                     <div className="mb-2">
-                      <span className="font-semibold">Review: </span>{review.review}
+                      <span className="font-semibold">Review: </span>
+                      {review.review}
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </div>
-        </div>             
+        </div>
       </CardContent>
     </Card>
   );
