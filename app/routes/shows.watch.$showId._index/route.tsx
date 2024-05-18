@@ -13,6 +13,7 @@ import SeriesPage from "./Series";
 import { getContributorsByShowId } from "~/lib/repository/contributor/contributor.server";
 import FilmPage from "./Film";
 import { getFavoriteList } from "~/lib/repository/favorite/favorite.server";
+import { getShowReviews } from "~/lib/repository/ulasan/ulasan.server";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   if (params.showId === "" || !params.showId || params.showId === null) {
@@ -31,6 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   let showCount = await getShowVideo({ showId });
   let showRating = await getShowRating({ showId });
   let favoriteList = await getFavoriteList({ username });
+  let showReviews = await getShowReviews({ showId });
   if (!show) {
     return redirectWithError("Tayangan tidak ditemukan", "/shows");
   }
@@ -44,6 +46,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     showCount,
     showRating,
     favoriteList,
+    showReviews,
   };
 }
 

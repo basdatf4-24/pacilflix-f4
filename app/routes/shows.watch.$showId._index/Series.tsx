@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/lib/ui/select";
+import Ulasan from "./Ulasan";
 export default function SeriesPage() {
   let data = useRouteLoaderData<typeof showsLoader>(
     "routes/shows.watch.$showId._index"
@@ -130,6 +131,7 @@ export default function SeriesPage() {
         </ul>
       </div>
       <p>Sutradara: {data?.show.sutradara}</p>
+      <Ulasan />
     </div>
   );
 }

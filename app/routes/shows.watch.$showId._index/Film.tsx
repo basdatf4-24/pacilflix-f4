@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "~/lib/ui/select";
 import { DialogClose } from "@radix-ui/react-dialog";
+import Ulasan from "./Ulasan";
 export default function FilmPage() {
   const fetcher = useFetcher();
   let data = useRouteLoaderData<typeof showsLoader>(
@@ -168,6 +169,7 @@ export default function FilmPage() {
         </ul>
       </div>
       <p>Sutradara: {data?.show.sutradara}</p>
+      <Ulasan />
     </div>
   );
 }

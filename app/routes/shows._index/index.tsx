@@ -44,9 +44,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   };
 }
 
-export default function Index() {
+export default function ShowIndex() {
   const data = useLoaderData<typeof loader>();
-  console.log(data?.search);
 
   return (
     <div className="w-full px-10 py-10 flex flex-col space-y-10">
