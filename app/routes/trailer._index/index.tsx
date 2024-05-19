@@ -3,9 +3,9 @@ import { Form, useLoaderData } from "@remix-run/react";
 import {
   getAllMovie,
   getAllSeries,
+  getTopTayanganGlobalThisWeek,
   searchTayangan,
 } from "~/lib/repository/tayangan/tayangan.server";
-import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
 import { Input } from "~/lib/ui/input";
 import { Label } from "~/lib/ui/label";
 import DaftarTayangan from "./DaftarTrailer";
@@ -24,17 +24,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   let movies = await getAllMovie();
   let series = await getAllSeries();
+  let topMovieGlobal = await getTopTayanganGlobalThisWeek();
 
   return {
     movies,
     series,
     search,
+    topMovieGlobal,
   };
 }
 
 export default function Index() {
   const data = useLoaderData<typeof loader>();
-  console.log(data?.search);
 
   return (
     <div className="w-full px-10 py-10 flex flex-col space-y-10">

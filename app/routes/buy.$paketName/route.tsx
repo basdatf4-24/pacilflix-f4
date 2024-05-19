@@ -41,8 +41,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   let redirect = await getAuthUser(request);
   if (redirect) return redirect;
 
-  console.log(params.paketName);
-
   let username = await getUserFromRequest(request);
   let packageData = await getPackageDetail({
     packageName: params.paketName,

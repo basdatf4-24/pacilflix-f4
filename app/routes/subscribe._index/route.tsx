@@ -22,7 +22,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (redirect) return redirect;
   let username = await getUserFromRequest(request);
   let activeSubscription = await getActiveSubscription({ username });
-  console.log(activeSubscription);
   let subcriptionPackage = await getSubcriptionPackage();
   let transactionHistory = await getTransactionHistory({ username });
   return json({
@@ -155,7 +154,6 @@ export default function SubscribePage() {
                 let end_date = new Date(table.end_date_time);
                 let end_date_format = `${end_date.getFullYear()}/${end_date.getMonth()}/${end_date.getDate()}`;
                 let payment = "";
-                console.log(table.metode_pembayaran);
                 switch (table.metode_pembayaran) {
                   case PaymentMethod.CREDIT_CARD:
                     payment = "Debit";
