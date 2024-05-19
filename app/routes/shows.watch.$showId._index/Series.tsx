@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "~/lib/ui/dialog";
 import {
@@ -30,6 +31,11 @@ export default function SeriesPage() {
   });
 
   let fetcher = useFetcher();
+  let now = new Date();
+  let sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+  let sevenDaysFromNowString = `${sevenDaysFromNow.getFullYear()}-${
+    sevenDaysFromNow.getMonth() + 1
+  }-${sevenDaysFromNow.getDate()}`;
 
   return (
     <div className="w-full flex flex-col space-y-8 px-10 py-10">
@@ -53,7 +59,33 @@ export default function SeriesPage() {
           })}
         </div>
 
-        <Button className="w-[200px]">Unduh tayangan</Button>
+        <fetcher.Form method="post" action="/_actions/download-show">
+          <input type="hidden" name="showId" value={data?.showId} />
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button type="submit" className="w-[200px]">
+                Unduh tayangan
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="space-y-4">
+              <DialogHeader>
+                <DialogTitle>
+                  Sukses menambahkan tayangan ke daftar unduhan
+                </DialogTitle>
+              </DialogHeader>
+              <div className="flex flex-col space-y-10">
+                <p>
+                  Selamat! Anda telah berhasil mengunduh {data?.show.judul} dan
+                  akan berlaku hingga {sevenDaysFromNowString}. Cek informasi
+                  selengkapnya pada halaman daftar unduhan.
+                </p>
+                <Link to="/shows/downloaded">
+                  <Button>Daftar unduhan</Button>
+                </Link>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </fetcher.Form>
         <Dialog>
           <DialogTrigger asChild>
             <Button className="w-[200px]" type="button">
@@ -95,7 +127,7 @@ export default function SeriesPage() {
             </div>
           </DialogContent>
         </Dialog>
-        <p>Total view: {data?.showCount?.count}</p>
+        <p>Total view: {data?.showCount?.valid_view ?? 0}</p>
         <p>Rating rata-rata: {parseFloat(data?.showRating.avg).toFixed(2)}</p>
         <div>
           <p>Sinopsis : {data?.show?.sinopsis}</p>

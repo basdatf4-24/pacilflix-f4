@@ -35,8 +35,29 @@ export async function getEpisode({ seriesId }: { seriesId: string }) {
 }
 
 export async function getShowVideo({ showId }: { showId: string }) {
-  let res =
-    await sql`SELECT COUNT(*) FROM RIWAYAT_NONTON WHERE ID_TAYANGAN = ${showId}`;
+  let res = await sql`
+  SELECT
+    sub.ID_TAYANGAN,
+    COUNT(*) AS valid_view
+  FROM (
+    SELECT DISTINCT ON (n.USERNAME, n.START_DATE_TIME)
+      n.ID_TAYANGAN,
+      n.USERNAME,
+      n.START_DATE_TIME
+    FROM
+      RIWAYAT_NONTON n
+      LEFT JOIN FILM f ON f.ID_TAYANGAN = n.ID_TAYANGAN
+      LEFT JOIN EPISODE e ON e.ID_SERIES = n.ID_TAYANGAN
+    WHERE
+      n.ID_TAYANGAN = ${showId} AND
+      (
+        (f.ID_TAYANGAN IS NOT NULL AND EXTRACT(EPOCH FROM (n.END_DATE_TIME - n.START_DATE_TIME)) / 60 >= 0.7 * f.DURASI_FILM) OR
+        (e.ID_SERIES IS NOT NULL AND EXTRACT(EPOCH FROM (n.END_DATE_TIME - n.START_DATE_TIME)) / 60 >= 0.7 * e.DURASI)
+      )
+  ) AS sub
+  GROUP BY
+    sub.ID_TAYANGAN;
+`;
   return res[0];
 }
 

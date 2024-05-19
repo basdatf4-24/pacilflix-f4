@@ -131,7 +131,7 @@ export default function FilmPage() {
           </DialogContent>
         </Dialog>
 
-        <p>Total view: {data?.showCount?.count}</p>
+        <p>Total view: {data?.showCount?.valid_view ?? 0}</p>
         <p>Rating rata-rata: {parseFloat(data?.showRating.avg).toFixed(2)}</p>
         <p>Sinopsis : {data?.show?.sinopsis}</p>
         <p>Durasi film : {data?.show?.durasi_film} menit</p>
