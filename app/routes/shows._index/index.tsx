@@ -32,7 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   let movies = await getAllMovie();
   let series = await getAllSeries();
   let topMovieGlobal = await getTopTayanganGlobalThisWeek();
-  //   let topMovieLokal = await getTopTayanganRegionalThisWeek({ username: username.nama });
+  let topMovieLokal = await getTopTayanganRegionalThisWeek({username : username });
 
   return {
     movies,
@@ -40,7 +40,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     username,
     search,
     topMovieGlobal,
-    // topMovieLokal,
+    topMovieLokal,
   };
 }
 

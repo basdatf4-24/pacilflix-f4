@@ -9,7 +9,7 @@ import {
   TableCell,
 } from "~/lib/ui/table";
 import { Button } from "~/lib/ui/button";
-import { Label } from "@radix-ui/react-label";
+import { getTopTayanganGlobalThisWeek } from "~/lib/repository/tayangan/tayangan.server";
 
 export default function DaftarTayangan({ data }: { data: any }) {
   return (
