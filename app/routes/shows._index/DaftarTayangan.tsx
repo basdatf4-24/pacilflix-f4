@@ -1,7 +1,6 @@
 import { Link } from "@remix-run/react";
 import {
   Table,
-  TableCaption,
   TableHeader,
   TableRow,
   TableHead,
@@ -9,7 +8,6 @@ import {
   TableCell,
 } from "~/lib/ui/table";
 import { Button } from "~/lib/ui/button";
-import { Label } from "@radix-ui/react-label";
 
 export default function DaftarTayangan({ data }: { data: any }) {
   return (
@@ -27,7 +25,7 @@ export default function DaftarTayangan({ data }: { data: any }) {
         <Table className="w-full">
           <TableHeader>
             <TableRow>
-              <TableHead>Title</TableHead>
+              <TableHead className="min-w-[200px]">Title</TableHead>
               <TableHead>Synopsis</TableHead>
               <TableHead>Trailer URL</TableHead>
               <TableHead>Release Date</TableHead>
@@ -72,7 +70,7 @@ export default function DaftarTayangan({ data }: { data: any }) {
         <Table className="w-full">
           <TableHeader>
             <TableRow>
-              <TableHead>Title</TableHead>
+              <TableHead className="min-w-[200px]">Title</TableHead>
               <TableHead>Synopsis</TableHead>
               <TableHead>Trailer URL</TableHead>
               <TableHead>Release Date</TableHead>

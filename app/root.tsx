@@ -95,7 +95,7 @@ export default function App() {
       <div className="z-20" id="nav">
         <Navbar />
       </div>
-      <div className="relative z-10 flex flex-grow" id="content">
+      <div className="relative z-10 flex flex-grow py-10" id="content">
         <Outlet />
       </div>
       <div className="z-20" id="footer"></div>

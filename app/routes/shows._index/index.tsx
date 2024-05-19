@@ -4,7 +4,6 @@ import {
   getAllMovie,
   getAllSeries,
   getTopTayanganGlobalThisWeek,
-  getTopTayanganRegionalThisWeek,
   searchTayangan,
 } from "~/lib/repository/tayangan/tayangan.server";
 import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";

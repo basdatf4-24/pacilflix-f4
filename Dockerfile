@@ -11,31 +11,30 @@ ARG RELEASE_PACKAGE
 ENV RELEASE_PACKAGE=$RELEASE_PACKAGE
 
 # Install all node_modules, including dev
-FROM base as deps
-
+FROM oven/bun:1 as deps
 WORKDIR /remixapp
 
-ADD package.json package-lock.json ./
-RUN npm install --include=dev --legacy-peer-deps
+ADD package.json bun.lockb ./
+RUN bun install --frozen-lockfile
 
 # Setup production node_modules
-FROM base as production-deps
+FROM oven/bun:1 as production-deps
 
 WORKDIR /remixapp
 
 COPY --from=deps /remixapp/node_modules /remixapp/node_modules
-ADD package.json package-lock.json ./
-RUN npm prune --omit=dev
+ADD package.json bun.lockb ./
+RUN bun install  --frozen-lockfile --production
 
 # Build the app
-FROM base as build
+FROM oven/bun:1 as build
 
 WORKDIR /remixapp
 
 COPY --from=deps /remixapp/node_modules /remixapp/node_modules
 
 ADD . .
-RUN npm run build
+RUN bun run build
 
 # Finally, build the production image with minimal footprint
 FROM base
@@ -49,6 +48,5 @@ COPY --from=production-deps /remixapp/node_modules /remixapp/node_modules
 COPY --from=build /remixapp/build /remixapp/build
 COPY --from=build /remixapp/server.mjs /remixapp/server.mjs
 COPY --from=build /remixapp/package.json /remixapp/package.json
-COPY --from=build /remixapp/start.sh /remixapp/start.sh
 
 CMD ["npm", "start"]

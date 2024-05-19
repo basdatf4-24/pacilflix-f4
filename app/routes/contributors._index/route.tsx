@@ -56,7 +56,7 @@ export default function ContributorsPage() {
   let data = useLoaderData<LoaderInterface>();
   return (
     <div className="relative w-full px-10 py-10 flex flex-col space-y-6">
-      <h2 className="text-lg font-semibold">Daftar Kontributor</h2>
+      <h2 className="text-2xl font-semibold">Daftar Kontributor</h2>
       <div className="space-y-2">
         <p className="font-semibold">Filter</p>
         <div className="flex flex-row space-x-6">

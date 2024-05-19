@@ -62,7 +62,7 @@ export default function ListFavoritePage() {
     <div className="relative flex flex-col w-full px-10 py-10">
       <div className="space-y-6">
         <div className="flex flex-row justify-between">
-          <h1 className="text-2xl">Daftar Favorit</h1>
+          <h1 className="text-2xl font-semibold">Daftar Favorit</h1>
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="default" type="button">

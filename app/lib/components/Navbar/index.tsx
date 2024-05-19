@@ -41,7 +41,7 @@ export default function Navbar() {
     ];
   }
   return (
-    <nav className="px-10 py-3 flex items-center justify-between sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="px-10 py-3 flex items-center justify-between fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex flex-row gap-8">
         <Link to="/">
           <p className="text-lg font-semibold">Pacilflix</p>
@@ -92,12 +92,12 @@ export default function Navbar() {
           </DropdownMenu>
         </div>
 
-        <div className="flex items-center justify-center gap-5">
+        <div className="flex items-center justify-center items-center gap-5">
           {navbar.map((items, index) => (
             <NavLink
               to={items.url}
               key={index}
-              className="transition-colors text-foreground/60 hover:text-foreground/80"
+              className="transition-colors text-foreground/60 text-sm  hover:text-foreground/80"
             >
               {items.title}
             </NavLink>
@@ -108,11 +108,11 @@ export default function Navbar() {
       <div className="flex items-center justify-center">
         {!rootLoaderData?.user ? (
           <NavLink to="/authentication">
-            <Button>Login</Button>
+            <Button size="sm">Login</Button>
           </NavLink>
         ) : (
           <NavLink to="/authentication/logout">
-            <Button>Logout</Button>
+            <Button size="sm">Logout</Button>
           </NavLink>
         )}
       </div>

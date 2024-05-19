@@ -27,15 +27,11 @@ export async function getAuthUser(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
   if (!session.has("username")) {
     session.unset("username");
-    throw redirectWithError(
-      "/authentication/login",
-      "Opps! you are not logged in",
-      {
-        headers: {
-          "Set-Cookie": await commitSession(session),
-        },
-      }
-    );
+    return redirectWithError("/authentication", "Opps! you are not logged in", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
   }
   return undefined;
 }
