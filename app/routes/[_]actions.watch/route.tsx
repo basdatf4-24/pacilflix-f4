@@ -25,14 +25,14 @@ export async function action({ request }: ActionFunctionArgs) {
   if (watch <= 0) {
     return jsonWithError(
       { error: true },
-      "Opps! kamu belum menonton tayanagan ini"
+      "Opps! kamu belum menonton tayangan ini"
     );
   }
 
   if (showDuration <= 0) {
     return jsonWithError(
       { error: true },
-      "Opps! kamu belum menonton tayanagan ini"
+      "Opps! kamu belum menonton tayangan ini"
     );
   }
 

@@ -2,6 +2,7 @@ export enum PaymentMethod {
   BANK_TRANSFER = "BANK_TRANSFER",
   CREDIT_CARD = "CREDIT_CARD",
   E_WALLET = "E_WALLET",
+  DEBIT = "DEBIT",
 }
 
 export function validatePaymentMethod(paymentMethod: string): boolean {

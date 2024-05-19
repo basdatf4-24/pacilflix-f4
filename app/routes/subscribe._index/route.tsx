@@ -15,6 +15,7 @@ import {
   getSubcriptionPackage,
   getTransactionHistory,
 } from "~/lib/repository/subscribe/subscribe.server";
+import { PaymentMethod } from "~/lib/repository/subscribe/type";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   let redirect = await getAuthUser(request);
@@ -154,15 +155,22 @@ export default function SubscribePage() {
                 let end_date = new Date(table.end_date_time);
                 let end_date_format = `${end_date.getFullYear()}/${end_date.getMonth()}/${end_date.getDate()}`;
                 let payment = "";
+                console.log(table.metode_pembayaran);
                 switch (table.metode_pembayaran) {
-                  case "DEBIT":
+                  case PaymentMethod.CREDIT_CARD:
                     payment = "Debit";
                     break;
-                  case "BANK_TRANSFER":
+                  case PaymentMethod.BANK_TRANSFER:
                     payment = "Transfer Bank";
                     break;
-                  case "E_WALLET":
+                  case PaymentMethod.E_WALLET:
                     payment = "E-Wallet";
+                    break;
+                  case PaymentMethod.DEBIT:
+                    payment = "Debit";
+                    break;
+                  default:
+                    payment = "Unknown";
                     break;
                 }
 

@@ -8,7 +8,7 @@ import {
   TableCell,
 } from "~/lib/ui/table";
 import { Button } from "~/lib/ui/button"; // Adjust the path as per your project structure
-import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
 import {
   addNewPackage,
@@ -28,7 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/lib/ui/select";
-import { PostgresError } from "postgres";
+import type { PostgresError } from "postgres";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   if (
     params.paketName === "" ||
@@ -143,6 +143,7 @@ export default function PaymentPage() {
                 <SelectItem value="BANK_TRANSFER">Transfer bank</SelectItem>
                 <SelectItem value="CREDIT_CARD">Kartu kredit</SelectItem>
                 <SelectItem value="E_WALLET">E-Wallet</SelectItem>
+                <SelectItem value="DEBIT">Kartu debit</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

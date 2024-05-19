@@ -1,8 +1,6 @@
-import { Label } from "@radix-ui/react-dropdown-menu";
 import { Link } from "@remix-run/react";
 import {
   Table,
-  TableCaption,
   TableHeader,
   TableRow,
   TableHead,
@@ -62,9 +60,8 @@ export default function DaftarTayangan({ data }: { data: any }) {
       </div>
 
       <div className="space-y-10">
-        <h2 className="text-2xl font-semibold">Film</h2>
+        <h2 className="text-2xl font-semibold">Series</h2>
         <Table className="w-full">
-          <TableCaption>Daftar Series</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>Title</TableHead>
