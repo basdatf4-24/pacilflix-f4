@@ -10,22 +10,38 @@ feat/[feature], example feat/authentication
 
 (https://nodejs.org/en/download)[https://nodejs.org/en/download]
 
+### Make sure you already installed bun
+
+(https://bun.sh/)[https://bun.sh/]
+
+### Install depedency
+
 ```shellscript
-npm install
+bun install
 ```
 
-#### Create .env files
+* you have to use bun or instead installation dependency or error
+
+alternative:
+- pnpm
+- yarn
+  
+
+#### Create .env 
+
+Referes to `env.example`
 
 ```.env
 SESSION_SECRET='ofu8OtCRlacMMg=='
+DATABASE_URL=``
 ```
 
 ## Development
 
 Run the Vite dev server:
 
-```shellscript
-npm run dev
+```sh
+bun run dev
 ```
 
 ## Deployment
@@ -33,22 +49,15 @@ npm run dev
 First, build your app for production:
 
 ```sh
-npm run build
+bun run build
 ```
 
 Then run the app in production mode:
 
 ```sh
-npm start
+bun run  start
 ```
 
-Now you'll need to pick a host to deploy it to.
+### Deployment
 
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
+[https://pacilflix-f4.fly.dev/](https://pacilflix-f4.fly.dev/)
