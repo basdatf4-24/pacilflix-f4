@@ -7,19 +7,13 @@ import {
   TableCell,
 } from "~/lib/ui/table";
 import { Button } from "~/lib/ui/button"; // Adjust the path as per your project structure
-import {
-  type ActionFunctionArgs,
-  json,
-  type LoaderFunctionArgs,
-} from "@remix-run/node";
+import { json, type LoaderFunctionArgs } from "@remix-run/node";
 import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
-import { Link, useFetcher, useLoaderData } from "@remix-run/react";
-import { jsonWithError, jsonWithSuccess } from "remix-toast";
+import { Link, useLoaderData } from "@remix-run/react";
 import {
   getActiveSubscription,
   getSubcriptionPackage,
   getTransactionHistory,
-  addNewPackage,
 } from "~/lib/repository/subscribe/subscribe.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -159,6 +153,18 @@ export default function SubscribePage() {
                 let start_date_format = `${start_date.getFullYear()}/${start_date.getMonth()}/${start_date.getDate()}`;
                 let end_date = new Date(table.end_date_time);
                 let end_date_format = `${end_date.getFullYear()}/${end_date.getMonth()}/${end_date.getDate()}`;
+                let payment = "";
+                switch (table.metode_pembayaran) {
+                  case "DEBIT":
+                    payment = "Debit";
+                    break;
+                  case "BANK_TRANSFER":
+                    payment = "Transfer Bank";
+                    break;
+                  case "E_WALLET":
+                    payment = "E-Wallet";
+                    break;
+                }
 
                 return (
                   <TableRow key={index}>
@@ -171,9 +177,7 @@ export default function SubscribePage() {
                     <TableCell className="text-center">
                       {end_date_format}
                     </TableCell>
-                    <TableCell className="text-center">
-                      {start_date_format}
-                    </TableCell>
+                    <TableCell className="text-center">{payment}</TableCell>
                     <TableCell className="text-center">
                       {end_date_format}
                     </TableCell>
