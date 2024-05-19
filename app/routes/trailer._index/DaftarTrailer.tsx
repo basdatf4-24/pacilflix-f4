@@ -1,0 +1,103 @@
+import { Label } from "@radix-ui/react-dropdown-menu";
+import { Link } from "@remix-run/react";
+import {
+  Table,
+  TableCaption,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "~/lib/ui/table";
+import { Button } from "~/lib/ui/button";
+
+export default function DaftarTayangan({ data }: { data: any }) {
+  return (
+    <div className="relative w-full px-10 py-10 space-y-10">
+      <div className="flex justify-center mb-4 gap-4">
+        <Button variant="default" className="w-[50%]">
+          Top 10 Film Peringkat Global
+        </Button>
+        <Button variant="default" className="w-[50%]">
+          Top 10 Film Peringkat Lokal
+        </Button>
+      </div>
+
+      <div className="space-y-10">
+        <h2 className="text-2xl font-semibold">Film</h2>
+        <Table className="w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Synopsis</TableHead>
+              <TableHead>Trailer URL</TableHead>
+              <TableHead>Release Date</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data?.movies.map((movie: any, index: number) => {
+              let date = new Date(movie.release_date_trailer);
+              let format = `${date.getFullYear()}/${
+                date.getMonth() + 1
+              }/${date.getDate()}`;
+              return (
+                <TableRow key={index}>
+                  <TableCell>{movie.judul}</TableCell>
+                  <TableCell>{movie.sinopsis_trailer}</TableCell>
+                  <TableCell>
+                    <Link
+                      to={movie.url_video_trailer}
+                      className="text-blue-600 dark:text-blue-400 underline"
+                    >
+                      {movie.url_video_trailer}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{format}</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="space-y-10">
+        <h2 className="text-2xl font-semibold">Film</h2>
+        <Table className="w-full">
+          <TableCaption>Daftar Series</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Synopsis</TableHead>
+              <TableHead>Trailer URL</TableHead>
+              <TableHead>Release Date</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data?.series.map((series: any, index: number) => {
+              let date = new Date(series.release_date_trailer);
+              let format = `${date.getFullYear()}/${
+                date.getMonth() + 1
+              }/${date.getDate()}`;
+              return (
+                <TableRow key={index}>
+                  <TableCell>{series.judul}</TableCell>
+                  <TableCell>{series.sinopsis_trailer}</TableCell>
+                  <TableCell>
+                    <Link
+                      to={series.url_video_trailer}
+                      className="text-blue-600 dark:text-blue-400 underline"
+                    >
+                      {series.url_video_trailer}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{format}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
+}

@@ -55,6 +55,25 @@ export async function createFavorite({
 }) {
   let timestamp = new Date().toString();
   let res =
-    await sql`INSERT INTO DAFTAR_FAVORIT (USERNAME, JUDUL, TIMESTAMP) VALUES (${username}, ${title}, ${timestamp}) RETURNING *`;
-  return res[0];
+    await sql`INSERT INTO DAFTAR_FAVORIT (USERNAME, JUDUL, TIMESTAMP) VALUES (${username}, ${title}, ${timestamp})`;
+  return res;
+}
+
+export async function addFavoriteToFavoriteList({
+  username,
+  timestamp,
+  showId,
+}: {
+  username: string;
+  timestamp: string;
+  showId: string;
+}) {
+  let res =
+    await sql`INSERT INTO TAYANGAN_MEMILIKI_DAFTAR_FAVORIT (USERNAME, TIMESTAMP, ID_TAYANGAN) VALUES (${username}, ${timestamp}, ${showId})`;
+  return res;
+}
+
+export async function getFavoriteList({ username }: { username: string }) {
+  let res = await sql`SELECT * FROM DAFTAR_FAVORIT WHERE USERNAME=${username}`;
+  return res;
 }

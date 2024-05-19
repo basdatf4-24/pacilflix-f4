@@ -1,134 +1,190 @@
-import {Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "~/lib/ui/table";
-import { Button } from '~/lib/ui/button'; // Adjust the path as per your project structure
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "~/lib/ui/table";
+import { Button } from "~/lib/ui/button"; // Adjust the path as per your project structure
+import {
+  type ActionFunctionArgs,
+  json,
+  type LoaderFunctionArgs,
+} from "@remix-run/node";
+import { getAuthUser, getUserFromRequest } from "~/lib/server/auth.server";
+import { Link, useFetcher, useLoaderData } from "@remix-run/react";
+import { jsonWithError, jsonWithSuccess } from "remix-toast";
+import {
+  getActiveSubscription,
+  getSubcriptionPackage,
+  getTransactionHistory,
+  addNewPackage,
+} from "~/lib/repository/subscribe/subscribe.server";
 
+export async function loader({ request }: LoaderFunctionArgs) {
+  let redirect = await getAuthUser(request);
+  if (redirect) return redirect;
+  let username = await getUserFromRequest(request);
+  let activeSubscription = await getActiveSubscription({ username });
+  console.log(activeSubscription);
+  let subcriptionPackage = await getSubcriptionPackage();
+  let transactionHistory = await getTransactionHistory({ username });
+  return json({
+    username,
+    activeSubscription,
+    subcriptionPackage,
+    transactionHistory,
+  });
+}
 
 export default function SubscribePage() {
-    return (
-        <>
-        <div className="HalamanSubscribe">
-            <h2 className="text-lg font-semibold mb-4">Halaman Kelola Langganan</h2>
-            <div className="PaketAktif">
-                <p>
-                    Paket Langganan Aktif Anda:
-                </p>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[100px]">Nama</TableHead>
-                            <TableHead>Harga</TableHead>
-                            <TableHead>Resolusi Layar</TableHead>
-                            <TableHead>Dukungan Perangkat</TableHead>
-                            <TableHead >Tanggal Dimulai</TableHead>
-                            <TableHead >Tanggal Akhir</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell className="font-medium">Premium</TableCell>
-                            <TableCell>100000</TableCell>
-                            <TableCell>4K</TableCell>
-                            <TableCell>Mobile, Tablet, Dekstop, Smart TV</TableCell>
-                            <TableCell >2024/05/01</TableCell>
-                            <TableCell >2024/06/01</TableCell>
-                        </TableRow>
-
-                    </TableBody>
-                </Table>
-
-            </div>
-            
-            <div className="PilihanPaket">
-                <p>
-                    Pilih Paket Lain:
-                </p>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[100px]">Nama</TableHead>
-                            <TableHead>Harga</TableHead>
-                            <TableHead>Resolusi Layar</TableHead>
-                            <TableHead>Dukungan Perangkat</TableHead>
-                            <TableHead >Beli</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell className="font-medium">Basic</TableCell>
-                            <TableCell>25000</TableCell>
-                            <TableCell>SD</TableCell>
-                            <TableCell>Mobile, Tablet</TableCell>
-                            <TableCell className=" table-cell">
-                                <Button>Beli</Button>
-                            </TableCell>
-
-                        </TableRow>
-                        
-                        <TableRow>
-                            <TableCell className="font-medium">Standard</TableCell>
-                            <TableCell>50000</TableCell>
-                            <TableCell>FHD</TableCell>
-                            <TableCell>Mobile, Tablet, Dekstop</TableCell>
-                            <TableCell className=" table-cell">
-                                <Button>Beli</Button>
-                            </TableCell>
-                        </TableRow>
-
-                        <TableRow>
-                            <TableCell className="font-medium">Premium</TableCell>
-                            <TableCell>100000</TableCell>
-                            <TableCell>4K</TableCell>
-                            <TableCell>Mobile, Tablet, Dekstop, Smart TV</TableCell>
-                            <TableCell className=" table-cell">
-                                <Button>Beli</Button>
-                            </TableCell>
-                        </TableRow>
-
-                    </TableBody>
-                </Table>
-
-            </div>
-            
-            <div className="RiwayatTransaksi">
-                <p>
-                    Riwayat Transaksi:
-                </p>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[100px]">Nama Paket</TableHead>
-                            <TableHead >Tanggal Dimulai</TableHead>
-                            <TableHead >Tanggal Akhir</TableHead>
-                            <TableHead>Metode Pembayaran</TableHead>
-                            <TableHead>Tanggal Pembayaran</TableHead>
-                            <TableHead>Total Pembayaran</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    <TableRow>
-                            <TableCell className="font-medium">Basic</TableCell>
-                            <TableCell >2024/02/29</TableCell>
-                            <TableCell >2024/03/29</TableCell>
-                            <TableCell>DEBIT</TableCell>
-                            <TableCell>2024/02/29</TableCell>
-                            <TableCell>25000</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className="font-medium">Standard</TableCell>
-                            <TableCell >2024/03/30</TableCell>
-                            <TableCell >2024/04/30</TableCell>
-                            <TableCell>DEBIT</TableCell>
-                            <TableCell>2024/03/30</TableCell>
-                            <TableCell>50000</TableCell>
-                        </TableRow>
-
-                    </TableBody>
-                </Table>
-
-            </div>
+  let data = useLoaderData<typeof loader>();
+  return (
+    <>
+      <div className="relative w-full px-10 py-10 space-y-10">
+        <h1 className="text-2xl font-bold text-center">
+          Halaman Kelola Langganan
+        </h1>
+        <div className="space-y-5 flex flex-col">
+          <p className="text-xl font-bold">Paket Langganan Aktif Anda:</p>
+          {data.activeSubscription.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-center">Nama</TableHead>
+                  <TableHead className="text-center">Harga</TableHead>
+                  <TableHead className="text-center">Resolusi Layar</TableHead>
+                  <TableHead className="text-center">
+                    Dukungan Perangkat
+                  </TableHead>
+                  <TableHead className="text-center">Tanggal Dimulai</TableHead>
+                  <TableHead className="text-center">Tanggal Akhir</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.activeSubscription.map((table, index) => {
+                  let start_date = new Date(table.start_date_time);
+                  let start_date_format = `${start_date.getFullYear()}/${start_date.getMonth()}/${start_date.getDate()}`;
+                  let end_date = new Date(table.end_date_time);
+                  let end_date_format = `${end_date.getFullYear()}/${end_date.getMonth()}/${end_date.getDate()}`;
+                  return (
+                    <TableRow key={index}>
+                      <TableCell className=" text-center">
+                        {table.nama}
+                      </TableCell>
+                      <TableCell className=" text-center">
+                        {table.harga}
+                      </TableCell>
+                      <TableCell className=" text-center">
+                        {table.resolusi_layar}
+                      </TableCell>
+                      <TableCell className=" text-center">
+                        {table.perangkat}
+                      </TableCell>
+                      <TableCell className=" text-center">
+                        {start_date_format}
+                      </TableCell>
+                      <TableCell className=" text-center">
+                        {end_date_format}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          ) : (
+            <p>-</p>
+          )}
         </div>
 
-        </>
+        <div className="space-y-5 flex flex-col">
+          <p className="text-xl font-bold">Pilih Paket Lain:</p>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-center">Nama</TableHead>
+                <TableHead className="text-center">Harga</TableHead>
+                <TableHead className="text-center">Resolusi Layar</TableHead>
+                <TableHead className="text-center">
+                  Dukungan Perangkat
+                </TableHead>
+                <TableHead className="text-center">Beli</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.subcriptionPackage.map((table, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell className=" text-center">{table.nama}</TableCell>
+                    <TableCell className=" text-center">
+                      {table.harga}
+                    </TableCell>
+                    <TableCell className=" text-center">
+                      {table.resolusi_layar}
+                    </TableCell>
+                    <TableCell className=" text-center">
+                      {table.perangkat}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Link to={`/buy/${table.nama}`}>
+                        <Button type="submit">Beli</Button>
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
 
-    )
+        <div className="flex flex-col space-y-5">
+          <p className="font-bold text-xl">Riwayat Transaksi:</p>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-center">Nama Paket</TableHead>
+                <TableHead className="text-center">Tanggal Dimulai</TableHead>
+                <TableHead className="text-center">Tanggal Akhir</TableHead>
+                <TableHead className="text-center">Metode Pembayaran</TableHead>
+                <TableHead className="text-center">
+                  Tanggal Pembayaran
+                </TableHead>
+                <TableHead className="text-center">Total Pembayaran</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.transactionHistory.map((table, index) => {
+                let start_date = new Date(table.start_date_time);
+                let start_date_format = `${start_date.getFullYear()}/${start_date.getMonth()}/${start_date.getDate()}`;
+                let end_date = new Date(table.end_date_time);
+                let end_date_format = `${end_date.getFullYear()}/${end_date.getMonth()}/${end_date.getDate()}`;
 
+                return (
+                  <TableRow key={index}>
+                    <TableCell className="text-center">
+                      {table.nama_paket}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {start_date_format}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {end_date_format}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {start_date_format}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {end_date_format}
+                    </TableCell>
+                    <TableCell className="text-center">{table.harga}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </>
+  );
 }

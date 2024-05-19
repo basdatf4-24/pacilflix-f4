@@ -24,3 +24,17 @@ export async function deleteDownloadedShows({
     );
   }
 }
+
+export async function addDownloadShow({
+  showId,
+  username,
+  timestamp,
+}: {
+  showId: string;
+  username: string;
+  timestamp: string;
+}) {
+  let res =
+    await sql`INSERT INTO TAYANGAN_TERUNDUH (ID_TAYANGAN, USERNAME, TIMESTAMP) VALUES (${showId}, ${username}, ${timestamp}) RETURNING *`;
+  return res[0];
+}

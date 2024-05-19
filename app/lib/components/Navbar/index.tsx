@@ -34,7 +34,7 @@ export default function Navbar() {
   } else {
     navbar = [
       { title: "Daftar Tayangan", url: "/" },
-      { title: "Daftar Kontributor", url: "/" },
+      { title: "Daftar Kontributor", url: "/contributors" },
       { title: "Daftar Favorit", url: "/shows/favorite" },
       { title: "Daftar Unduhan", url: "/shows/downloaded" },
       { title: "Kelola Langganan", url: "/subscribe" },
